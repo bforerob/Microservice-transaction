@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 public class AddSupplyRequest {
 
-    String name;
-    Integer quantity;
+    private final Long articleId;
+    private final Integer quantity;
 
 }

@@ -7,8 +7,8 @@ import lombok.Getter;
 @Getter
 public class SupplyResponse {
 
-    Long id;
-    String name;
-    Integer quantity;
+    private final Long id;
+    private final Long articleId;
+    private final Integer quantity;
 
 }

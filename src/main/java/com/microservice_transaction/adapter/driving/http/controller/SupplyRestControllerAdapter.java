@@ -4,6 +4,7 @@ import com.microservice_transaction.adapter.driving.http.dto.request.AddSupplyRe
 import com.microservice_transaction.adapter.driving.http.dto.response.SupplyResponse;
 import com.microservice_transaction.adapter.driving.http.mapper.request.ISupplyRequestMapper;
 import com.microservice_transaction.adapter.driving.http.mapper.response.ISupplyResponseMapper;
+import com.microservice_transaction.config.feign.service.CategoryService;
 import com.microservice_transaction.domain.api.ISupplyServicePort;
 import com.microservice_transaction.domain.model.Supply;
 import lombok.RequiredArgsConstructor;
@@ -22,12 +23,14 @@ public class SupplyRestControllerAdapter {
     private final ISupplyServicePort supplyService;
     private final ISupplyRequestMapper supplyRequestMapper;
     private final ISupplyResponseMapper supplyResponseMapper;
+    private final CategoryService categoryService;
 
 
     @PostMapping("/")
     public ResponseEntity<SupplyResponse> addSupply(@RequestBody AddSupplyRequest addSupplyRequest) {
 
         Supply createdSupply = supplyService.addSupply(supplyRequestMapper.addSupplyRequestToSupply(addSupplyRequest));
+        categoryService.addCategory(addSupplyRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(supplyResponseMapper.supplyToSupplyResponse(createdSupply));
 
     }

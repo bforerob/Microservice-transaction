@@ -2,13 +2,13 @@ package com.microservice_transaction.domain.model;
 
 public class Supply {
 
-    Long id;
-    String name;
-    Integer quantity;
+    private final Long id;
+    private final Long articleId;
+    private final Integer quantity;
 
-    public Supply(Long id, String name, Integer quantity) {
+    public Supply(Long id, Long articleId, Integer quantity) {
         this.id = id;
-        this.name = name;
+        this.articleId = articleId;
         this.quantity = quantity;
     }
 
@@ -16,8 +16,8 @@ public class Supply {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public Long getArticleId() {
+        return articleId;
     }
 
     public Integer getQuantity() {
