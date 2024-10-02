@@ -1,5 +1,10 @@
 package com.microservice_transaction.domain.model;
 
+import com.microservice_transaction.domain.exception.NullFieldException;
+import com.microservice_transaction.domain.util.DomainConstants;
+
+import java.util.Objects;
+
 public class Supply {
 
     private final Long id;
@@ -8,8 +13,12 @@ public class Supply {
 
     public Supply(Long id, Long articleId, Integer quantity) {
         this.id = id;
-        this.articleId = articleId;
-        this.quantity = quantity;
+        this.articleId = Objects.requireNonNull(articleId, () -> {
+            throw new NullFieldException(DomainConstants.Field.ARTICLE_ID.toString());
+        });
+        this.quantity = Objects.requireNonNull(quantity, () -> {
+            throw new NullFieldException(DomainConstants.Field.QUANTITY.toString());
+        });
     }
 
     public Long getId() {
