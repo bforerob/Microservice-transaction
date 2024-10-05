@@ -7,6 +7,7 @@ import com.microservice_transaction.adapter.driving.http.mapper.response.ISupply
 import com.microservice_transaction.config.feign.service.CategoryService;
 import com.microservice_transaction.domain.api.ISupplyServicePort;
 import com.microservice_transaction.domain.model.Supply;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/supply")
@@ -25,13 +28,19 @@ public class SupplyRestControllerAdapter {
     private final ISupplyResponseMapper supplyResponseMapper;
     private final CategoryService categoryService;
 
-
+    @Transactional
     @PostMapping("/")
     public ResponseEntity<SupplyResponse> addSupply(@RequestBody AddSupplyRequest addSupplyRequest) {
 
-        Supply createdSupply = supplyService.addSupply(supplyRequestMapper.addSupplyRequestToSupply(addSupplyRequest));
-        categoryService.addCategory(addSupplyRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body(supplyResponseMapper.supplyToSupplyResponse(createdSupply));
+        Supply supply = supplyRequestMapper.addSupplyRequestToSupply(addSupplyRequest);
+        supply.setArrived(supply.getArrivalDate().isBefore(LocalDate.now().plusDays(1)));
+        SupplyResponse createdSupply = supplyResponseMapper.supplyToSupplyResponse(supplyService.addSupply(supply));
+
+        if(supply.getArrived().equals(Boolean.TRUE)){
+            categoryService.incrementStock(addSupplyRequest);
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdSupply);
 
     }
 

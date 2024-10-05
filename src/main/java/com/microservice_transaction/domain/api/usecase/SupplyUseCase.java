@@ -6,6 +6,8 @@ import com.microservice_transaction.domain.exception.NegativeQuantityException;
 import com.microservice_transaction.domain.model.Supply;
 import com.microservice_transaction.domain.spi.ISupplyPersistencePort;
 
+import java.time.LocalDate;
+
 public class SupplyUseCase implements ISupplyServicePort {
 
     private final ISupplyPersistencePort supplyPersistencePort;
@@ -16,6 +18,8 @@ public class SupplyUseCase implements ISupplyServicePort {
 
     @Override
     public Supply addSupply(Supply supply) {
+
+
 
         if (supply.getArticleId() < 0) {
             throw new NegativeArticleIdException();

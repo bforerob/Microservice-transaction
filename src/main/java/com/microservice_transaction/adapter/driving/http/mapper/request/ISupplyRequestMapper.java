@@ -9,6 +9,7 @@ import org.mapstruct.Mapping;
 public interface ISupplyRequestMapper {
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "arrived", ignore = true)
     Supply addSupplyRequestToSupply(AddSupplyRequest addSupplyRequest);
 
 }

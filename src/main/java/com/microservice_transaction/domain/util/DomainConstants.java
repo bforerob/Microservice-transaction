@@ -9,6 +9,8 @@ public class DomainConstants {
     public enum Field{
         ARTICLE_ID,
         QUANTITY,
+        ARRIVAL_DATE,
+        ARRIVED
     }
 
 }

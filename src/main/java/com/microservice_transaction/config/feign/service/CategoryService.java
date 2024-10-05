@@ -11,7 +11,7 @@ public class CategoryService {
 
     private final ArticleFeignClient articleFeignClient;
 
-    public void addCategory(AddSupplyRequest request) {
+    public void incrementStock(AddSupplyRequest request) {
         articleFeignClient.incrementStock(request);
     }
 

@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "supply")
 @AllArgsConstructor
@@ -19,4 +21,6 @@ public class SupplyEntity {
     private Long id;
     private Long articleId;
     private Integer quantity;
+    private LocalDate arrivalDate;
+    private Boolean arrived;
 }
