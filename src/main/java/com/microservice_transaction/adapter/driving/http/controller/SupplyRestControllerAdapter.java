@@ -37,7 +37,7 @@ public class SupplyRestControllerAdapter {
         SupplyResponse createdSupply = supplyResponseMapper.supplyToSupplyResponse(supplyService.addSupply(supply));
 
         if(supply.getArrived().equals(Boolean.TRUE)){
-            categoryService.incrementStock(addSupplyRequest);
+            categoryService.incrementStock(supplyRequestMapper.addSupplyRequestToIncrementStockRequest(addSupplyRequest));
         }
 
         return ResponseEntity.status(HttpStatus.CREATED).body(createdSupply);

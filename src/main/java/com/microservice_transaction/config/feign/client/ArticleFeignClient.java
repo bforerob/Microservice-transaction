@@ -1,7 +1,8 @@
 package com.microservice_transaction.config.feign.client;
 
-import com.microservice_transaction.adapter.driving.http.dto.request.AddSupplyRequest;
+import com.microservice_transaction.adapter.driving.http.dto.request.IncrementStockRequest;
 import com.microservice_transaction.config.feign.FeignClientConfig;
+import com.microservice_transaction.domain.model.Supply;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface ArticleFeignClient {
 
     @PostMapping("/increment")
-    void incrementStock(@RequestBody AddSupplyRequest request);
+    void incrementStock(@RequestBody IncrementStockRequest request);
 
 }
 
